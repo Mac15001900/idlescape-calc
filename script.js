@@ -41,7 +41,7 @@ changeHandler = function changeHandler() {
 xpTillN = function xpTillN(n) {
 	var res = 0;
 	for (var i = 1; i <= n; i++) {
-		res+=Math.pow(1.5,i-1);
+		res+=Math.pow(i,1.5);
 	}
 	return res;
 }
