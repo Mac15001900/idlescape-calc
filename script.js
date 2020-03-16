@@ -5,6 +5,11 @@ changeHandler = function changeHandler() {
 
 	if(bp>1) bp/=100;
 
+	if(goal>1000){
+		alert("For the sake of your computer, I will not run this.");
+		return;
+	}
+
 	averageWaste = 0;
 	for (var i = 1; i <= goal; i++) {
 		averageWaste+= i*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
