@@ -1,10 +1,38 @@
+var MAX_AUGMENT = 50;
+
+var bp = 0;
+var chances = 0;
+var goal = 0;
+var xp = 0;
+var augCost = 0;
+var itemCost = 0;
+var itemLevel = 0;
+
+p = function p(level) {
+	var res = Math.pow(bp,level) + chances/100;
+	if(res>1) res=1;
+	return(res);
+}
+
+cp = function cp(endLevel, startLevel) {
+	if(startLevel>0) return cp(endLevel)/cp(startLevel);
+
+	var res=1;
+	for (var i = 1; i <= endLevel; i++) {
+		res*= p(i);
+	}
+	return(res);
+	
+}
+
 changeHandler = function changeHandler() {
-	var bp = Number(document.getElementById("bp").value);
-	var goal = Number(document.getElementById("goal").value);
-	var xp = Number(document.getElementById("xp").value);
-	var augCost = Number(document.getElementById("augCost").value);
-	var itemCost = Number(document.getElementById("itemCost").value);
-	var itemLevel = Number(document.getElementById("itemLevel").value);
+	bp = Number(document.getElementById("bp").value);
+	chances = Number(document.getElementById("chances").value);
+	goal = Number(document.getElementById("goal").value);
+	xp = Number(document.getElementById("xp").value);
+	augCost = Number(document.getElementById("augCost").value);
+	itemCost = Number(document.getElementById("itemCost").value);
+	itemLevel = Number(document.getElementById("itemLevel").value);
 
 	if(bp>1) bp/=100;
 
@@ -29,12 +57,12 @@ changeHandler = function changeHandler() {
 		((goal+averageWaste/successChance)*augCost + (1/successChance)*itemCost);
 
 	avrAugs = 0;
-	for (var i = 1; i <= 50; i++) {
+	for (var i = 1; i <= MAX_AUGMENT; i++) {
 		avrAugs+= i*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
 	}
 
 	avrXp = 0;
-	for (var i = 1; i <= 50; i++) {
+	for (var i = 1; i <= MAX_AUGMENT; i++) {
 		avrXp+= (Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i)) * xpTillN(i) * xp;
 	}
 
@@ -48,7 +76,7 @@ changeHandler = function changeHandler() {
 	boughtXp = 0;
 	boughtAugs = 0;
 	var skippedProb = (itemLevel+1)*itemLevel/2;
-	for (var i = itemLevel+1; i <= 50; i++) {
+	for (var i = itemLevel+1; i <= MAX_AUGMENT; i++) {
 		boughtXp += Math.pow(bp,(i-1)*i/2 - skippedProb) * Math.pow(i,1.5) * xp;
 		boughtAugs += (i-itemLevel)*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
 	}
