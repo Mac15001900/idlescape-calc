@@ -3,7 +3,7 @@ var MAX_AUGMENT = 50;
 var bp = 0;
 var chances = 0;
 var goal = 0;
-var xp = 0;
+var baseXp = 0;
 var augCost = 0;
 var itemCost = 0;
 var itemLevel = 0;
@@ -22,20 +22,32 @@ cp = function cp(endLevel, startLevel) {
 		res*= p(i);
 	}
 	return(res);
-	
+} 
+
+xpGain = function xpGain(level){
+	return Math.pow(level,1.5) * baseXp;
+}
+cXpGain = function cXpGain(endLevel, startLevel){
+	if(startLevel === undefined) startLevel = 0;
+
+	var res = 0;
+	for (var i = startLevel+1; i <= endLevel; i++) {
+		res += xpGain(i);
+	}
+	return res;
 }
 
 changeHandler = function changeHandler() {
 	bp = Number(document.getElementById("bp").value);
 	chances = Number(document.getElementById("chances").value);
 	goal = Number(document.getElementById("goal").value);
-	xp = Number(document.getElementById("xp").value);
+	baseXp = Number(document.getElementById("xp").value);
 	augCost = Number(document.getElementById("augCost").value);
 	itemCost = Number(document.getElementById("itemCost").value);
 	itemLevel = Number(document.getElementById("itemLevel").value);
 
+	//Deal with weird inputs
 	if(bp>1) bp/=100;
-
 	if(goal>1000){
 		alert("For the sake of your computer, I will not run this.");
 		return;
@@ -44,9 +56,10 @@ changeHandler = function changeHandler() {
 
 	averageWaste = 0;
 	for (var i = 1; i <= goal; i++) {
-		averageWaste+= i*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
+		//averageWaste+= i*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
+		averageWaste+= i*(cp(i-1)*(1-p(i)));
 	}
-	successChance = Math.pow(bp,goal*(goal+1)/2);
+	successChance = cp(goal);
 
 
 
@@ -58,12 +71,12 @@ changeHandler = function changeHandler() {
 
 	avrAugs = 0;
 	for (var i = 1; i <= MAX_AUGMENT; i++) {
-		avrAugs+= i*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
+		avrAugs+= i*(cp(i-1))*(1-p(i));
 	}
 
 	avrXp = 0;
 	for (var i = 1; i <= MAX_AUGMENT; i++) {
-		avrXp+= (Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i)) * xpTillN(i) * xp;
+		avrXp+= cp(i-1)*(1-p(i)) * cXpGain(i);
 	}
 
 	document.getElementById("o4").innerHTML = ""+avrAugs;
@@ -77,21 +90,16 @@ changeHandler = function changeHandler() {
 	boughtAugs = 0;
 	var skippedProb = (itemLevel+1)*itemLevel/2;
 	for (var i = itemLevel+1; i <= MAX_AUGMENT; i++) {
-		boughtXp += Math.pow(bp,(i-1)*i/2 - skippedProb) * Math.pow(i,1.5) * xp;
-		boughtAugs += (i-itemLevel)*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
+		//boughtXp += Math.pow(bp,(i-1)*i/2 - skippedProb) * Math.pow(i,1.5) * xp;
+		//boughtAugs += (i-itemLevel)*(Math.pow(bp,(i-1)*i/2))*(1-Math.pow(bp,i));
+		//Probability we end up at lvl i-1 (so get to try for i), times the xp gain from it:
+		boughtXp += cp(i-1, itemLevel) * xpGain(i);
+		boughtAugs += cp(i-1, itemLevel); 
 	}
 
 	document.getElementById("o8").innerHTML = ""+boughtXp;
 	document.getElementById("o9").innerHTML = ""+(boughtXp*xpCost - boughtAugs*augCost);
 
-}
-
-xpTillN = function xpTillN(n) {
-	var res = 0;
-	for (var i = 1; i <= n; i++) {
-		res+=Math.pow(i,1.5);
-	}
-	return res;
 }
 
 
