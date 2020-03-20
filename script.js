@@ -51,12 +51,12 @@ function input(name) {
 		var res = eval(document.getElementById(name).value);
 		if(isNaN(res)) {
 			res=0;
-			//document.getElementById(name).style="color:#FF0000";
+			document.getElementById(name).style="color:#FF0000";
 		}
-		//else document.getElementById(name).style="color:#000000";
+		else document.getElementById(name).style="color:#000000";
 		return(res);	
 	} catch(err){
-		//document.getElementById(name).style="color:#FF0000";
+		document.getElementById(name).style="color:#FF0000";
 		return 0;
 	}	
 }
