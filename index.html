@@ -1,45 +1,39 @@
 <h1>Idlescape augement calculator</h1>
 
 
-To use this, check your probability of augmenting an item to +1 (your base chance), and put it in the first field. You can currenly use this calculator for two purposes: finding out the expected costs of augmenting an items to a given level (in the upper part), or finding out how much xp you can expect to get from augmenting - either from scratch of from buying an already augmented item (in the lower part.). To update the output, press enter or deselect a field.<br>
+You can currently use this calculator to find the expected costs of augmenting an item to a certain level, or calculate how much xp you'll get on average from augmenting a certain item. You can also find out the value you'd get from buying an item that's already augmented. You can put numbers or simple math expressions into the fields.<br>
+You can mouse-over some fields to get a clarification of what they need. If you experience any problems, feel free to message Mac15001900 in-game or open an issue on the Github page.<br>
 
 <h3>Limitations:</h3>
-The chances enchantment is not currently supported.<br>
-
 Xp calculations do not take into account leveling up while augmenting, which slightly increases success chances.<br>
 
-Serious floating point errors happen if you try base chances above 99.9, it's not very reliable there. Works fine for actually achievable values though.<br>
+The calculator may break on some extreme values due to floating point errors or not considering augments above +50 to be possible. I can vouch for it working on values achievable in-game though.<br>
 
-Remember that in practise you'll usually get less than average xp; this is offset by gaining a lot on rare, high-level augments.<br>
-
-Also note that you'll need to apply any fish or other xp buffs yourself.
-<br><br>
+Remember that in practice you'll usually get less than average xp; this is offset by gaining a lot on rare, high-level augments.<br><br>
 <hr>
 
 <h3>Augmenting to make an item</h3>
 
-<form >
-	<label for="bp">Base chance:</label>
-	<input type="text" id="bp" name="bp">
-	<label for="chances">Chances enchant level:</label>
-	<input type="text" id="chances" name="chances"><br><br>
-	<label for="goal">Target augment level</label>
-	<input type="text" id="goal" name="goal"><br><br>
-</form>
+<label for="bp" >Base chance:</label>
+<input type="text" id="bp" name="bp" value="90" title="The chance of agumenting an item to +1 (without the chances enchant)">
+<label for="chances">Chances enchant level:</label>
+<input type="text" id="chances" name="chances" value="0"><br><br>
+<label for="goal">Target augment level:</label>
+<input type="text" id="goal" name="goal" value="0"><br><br><br>
 
-Expected number of augments: <label id="o1">Fill out the above fields</label>
+Expected number of augments: <label id="o1">Loading...</label>
 <br><br>
 
 Expected number of items:
-<label id="o2">Fill out the above fields</label>
+<label id="o2">Loading...</label>
 <br><br>
 
 Probability of success on first try:
-<label id="o3">Fill out the above fields</label>
+<label id="o3">Loading...</label>
 <br><br>
 
 Expected cost (uses fields below):
-<label id="o35">Fill out the above fields</label>
+<label id="o35">Loading...</label>
 <br><br>
 
 <hr>
@@ -47,38 +41,41 @@ Expected cost (uses fields below):
 <h3>Augmenting for xp</h3>
 
 <form>
-	<label for="xp">Base xp</label>
-	<input type="text" id="xp" name="xp"><br><br>
-	<label for="augCost">Cost per augment</label>
-	<input type="text" id="augCost" name="augCost">
-	<label for="itemCost">Cost per item</label>
-	<input type="text" id="itemCost" name="itemCost"><br><br>
-	<label for="itemLevel">Purchased item level</label>
-	<input type="text" id="itemLevel" name="itemLevel"><br><br>
+	<label for="xp">Base xp:</label>
+	<input type="text" id="xp" name="xp" value="0"
+	title="Xp you'll for augmenting this item to +1"><br><br>
+	<label for="augCost">Cost per augment:</label>
+	<input type="text" id="augCost" name="augCost" value="0"
+	title="The cost of all materials used in one augmentation">
+	<label for="itemCost">Cost per item:</label>
+	<input type="text" id="itemCost" name="itemCost" value="0"><br><br>
+	<label for="itemLevel">Purchased item level:</label>
+	<input type="text" id="itemLevel" name="itemLevel" value="0"
+	title="If you want to buy an item that's already augmented enter its level here"><br><br>
 </form>
 
 Average augments per item: 
-<label id="o4">Fill out the above fields</label>
+<label id="o4">Loading...</label>
 <br><br>
 
 Average xp per item: 
-<label id="o5">Fill out the above fields</label>
+<label id="o5">Loading...</label>
 <br><br>
 
 Average xp per augment: 
-<label id="o6">Fill out the above fields</label>
+<label id="o6">Loading...</label>
 <br><br>
 
 Average cost per 1 xp: 
-<label id="o7">Fill out the above fields</label>
+<label id="o7">Loading...</label>
 <br><br>
 
 Average xp from the purchased item:
-<label id="o8">Fill out the above fields</label>
+<label id="o8">Loading...</label>
 <br><br>
 
 Value of the purchased item:
-<label id="o9">Fill out the above fields</label>
+<label id="o9">Loading...</label>
 <br><br>
 
 <script src="script.js"></script>
