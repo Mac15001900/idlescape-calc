@@ -53,7 +53,8 @@ function input(name) {
 }
 
 function updateFields() {
-	bp = input("bp");
+	enchantingLevel = input("enchantingLevel");
+	bp = 0.9 + (Math.sqrt(enchantingLevel * 1.5) / 200);
 	chances = input("chances");
 	goal = input("goal");
 	baseXp = input("xp");
@@ -64,10 +65,11 @@ function updateFields() {
 	//Deal with weird inputs
 	if(bp>1) bp/=100;
 	if(goal>1000){
-		alert("For the sake of your computer, I will not run this.");
+		if(goal>Math.pow(10,10)) alert("Nope.")
+		else if(goal>1000000) alert("I'm not running any of this.")
+		else alert("For the sake of your computer, please stop.");
 		return;
 	}
-	if(itemLevel>40) alert("Note that only augments up to +50 are counted in xp calculations");
 
 	averageWaste = 0;
 	for (var i = 1; i <= goal; i++) {

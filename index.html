@@ -1,21 +1,21 @@
 <h1>Idlescape augement calculator</h1>
 
 
-You can currently use this calculator to find the expected costs of augmenting an item to a certain level, or calculate how much xp you'll get on average from augmenting a certain item. You can also find out the value you'd get from buying an item that's already augmented. You can put numbers or simple math expressions into the fields.<br>
+You can currently use this calculator to find the expected costs of augmenting an item to a certain level, or calculate how much xp you'll get on average from augmenting a certain item. You can also find out the value you'd get from buying an item that's already augmented. You can put numbers or simple math expressions into the fields - try putting *1.4 after base xp to account for shark bonus!<br>
 You can mouse-over some fields to get a clarification of what they need. If you experience any problems, feel free to message Mac15001900 in-game or open an issue on the Github page.<br>
 
 <h3>Limitations:</h3>
 Xp calculations do not take into account leveling up while augmenting, which slightly increases success chances.<br>
 
-The calculator may break on some extreme values due to floating point errors or not considering augments above +50 to be possible. I can vouch for it working on values achievable in-game though.<br>
+For xp calculations, only augments up to +50 are considered.<br>
 
 Remember that in practice you'll usually get less than average xp; this is offset by gaining a lot on rare, high-level augments.<br><br>
 <hr>
 
 <h3>Augmenting to make an item</h3>
 
-<label for="bp" >Base chance:</label>
-<input type="text" id="bp" name="bp" value="90" title="The chance of agumenting an item to +1 (without the chances enchant)">
+<label for="enchantingLevel">Enchanting level:</label>
+<input type="text" id="enchantingLevel" name="enchantingLevel" value="1" title="The level of your enchanting skill">
 <label for="chances">Chances enchant level:</label>
 <input type="text" id="chances" name="chances" value="0"><br><br>
 <label for="goal">Target augment level:</label>
