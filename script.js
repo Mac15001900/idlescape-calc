@@ -48,13 +48,18 @@ function output(number, value){
 
 function input(name) {
 	try{
-		var res = eval(document.getElementById(name).value);
-		if(isNaN(res)) {
-			res=0;
+		var res = document.getElementById(name).value;
+		res = res.toLowerCase();
+		res = res.replace(/k/g,"000");
+		res = res.replace(/m/g,"000000");
+		console.log(res);
+		var value = eval(res);
+		if(isNaN(value)) {
+			value=0;
 			document.getElementById(name).style="color:#FF0000";
 		}
 		else document.getElementById(name).style="color:#000000";
-		return(res);	
+		return(value);	
 	} catch(err){
 		document.getElementById(name).style="color:#FF0000";
 		return 0;
