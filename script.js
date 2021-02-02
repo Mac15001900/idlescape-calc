@@ -36,9 +36,10 @@ function cXpGain(endLevel, startLevel){
 	if(startLevel === undefined) startLevel = 0;
 
 	var res = 0;
-	for (var i = startLevel+1; i <= endLevel; i++) {
+	for (var i = startLevel+1; i < endLevel; i++) {
 		res += xpGain(i);
 	}
+	res += xpGain(endLevel)/2; //Assuming the final augment fails, i.e. gives half xp
 	return res;
 }
 
@@ -52,6 +53,7 @@ function input(name) {
 		res = res.toLowerCase();
 		res = res.replace(/k/g,"000");
 		res = res.replace(/m/g,"000000");
+		res = res.replace(/b/g,"000000000");
 		console.log(res);
 		var value = eval(res);
 		if(isNaN(value)) {
@@ -113,8 +115,8 @@ function updateFields() {
 	boughtXp = 0;
 	boughtAugs = 0;
 	for (var i = itemLevel+1; i <= MAX_AUGMENT; i++) {
-		//Probability we end up at lvl i-1 (so we get to try for i), times the xp gain from it:
-		boughtXp += cp(i-1, itemLevel) * xpGain(i);
+		//Probability we end up at lvl i-1 (so we get to try for i), times the xp gain from it, reduced by the chance it will fail:
+		boughtXp += cp(i-1, itemLevel) * xpGain(i) * (0.5 + 0.5*p(i));
 		boughtAugs += cp(i-1, itemLevel); 
 	}
 
